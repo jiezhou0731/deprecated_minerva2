@@ -1,0 +1,128 @@
+<div ng-controller="SearchResultDocDetailCtrl" ui-on-Drop="onDropToDelete($event,$data)" ng-click="getSelectionText($event)"> 
+  <div class="document" >
+    <md-content class="md-padding">
+        <md-card>
+          <md-card-content>
+            <div class="parent">
+              <div class="child"> 
+                <div class="selected-text-pop-outter" 
+                  ng-mouseenter="indicateDropPlace(true);"  
+                  ng-mouseleave="indicateDropPlace(false);" 
+                  ng-style="{'left': selectedTextPosition.left+'px', 'top': selectedTextPosition.top+'px'}" >
+                    <div class="selected-text-pop" 
+                        ui-draggable="true" 
+                        drag=selectedText 
+                        ng-show="selectedText.length!=0">
+                      {{selectedText}}
+                    </div>
+                </div>
+                <div class="title">
+                  {{doc.title}}
+                </div>
+                <div class="content" ng-bind-html="doc.content">
+                    {{doc.content}}
+                </div>
+              </div>
+            </div>
+          </md-card-content>
+        </md-card>
+    </md-content>
+  </div>
+  <div class="evidence-box">
+    <md-content class="md-padding">
+        <md-card>
+          <md-card-content>
+            <div class="parent">
+              <div class="child">
+                <div style="z-index:900;" ui-on-Drop="onDrop($event,$data)" >
+                    <div class="cover-green" ng-show="dropCover">
+                    </div>
+                    <div class="cover-font" ng-show="dropCover">
+                        Drop here
+                      
+                    </div>
+                    <div class="chips"
+                      id="dropTextBox" 
+                      ng-click="clickDropTextBox()" >
+                        <div 
+                          ng-repeat="droppedText in droppedTextArray track by $index" 
+                          ng-style="{'background-color':droppedText.backgroundColor}"
+                          drag=droppedText ui-draggable="true" 
+                          ng-click="clickDroppedText(droppedText.text);" 
+                          ng-right-click="rightClickDroppedText(droppedText,$event)" 
+                          on-drop-success="dropTest()"> 
+                          <div class="chip"> {{droppedText.text}}
+                                 <span ng-show="droppedText.type!=undefined" >({{droppedText.type}})</span>
+                          </div>
+                          <div class="menu" ng-style="{left: menuPosition.left, top: menuPosition.top}" >
+                              <div  ng-show="droppedText.showMenu" class="dropped-text-types" ng-click="clickMenu(droppedText,'tag',$event)">
+                                  tag
+                              </div>
+                              <div  ng-show="droppedText.showMenu" class="dropped-text-types" ng-click="clickMenu(droppedText,'find more this type',$event)" style="width:140px;">
+                                    find more this type
+                              </div>
+                              <div ng-show="droppedText.showMenu" class="dropped-text-types" style="width:120;" ng-click="clickMenu(droppedText,'find more',$event)">
+                                    find more
+                              </div>
+
+                          </div>
+                          <div style="position:absolute; top:25px;overflow:hidden;margin-top:1px;" ng-show="droppedText.showTypeSelectPanel">
+                            <div ng-repeat="type in typeList" class="dropped-text-types" ng-click="clickType(droppedText,type,$event)">
+                                {{type}}
+                            </div>
+                          </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+                <div style="left:50vw;bottom:110px; position:fixed; background-color:red; width:30vw; min-height:20vh; max-height:20vh;z-index:2000; overflow:hidden; background-color:white;border:1px solid gray; overflow-y:scroll; " ng-show="showPossiblePairsPanel">
+                    <div ng-show="isLoading" style="margin-left:10vw; margin-top:5vh;">
+                        <canvas height="20" width="60" id="loadingAnimation" ></canvas>
+                    </div>
+                    <div ng-repeat="pair in possiblePairArray" class="pair" ng-click="clickPair(pair)" ng-hide="isLoading">
+                        {{pair[0]}} & 
+                        {{pair[1]}}
+                    </div>
+                </div>
+              </div>
+            </div>
+          </md-card-content>
+        </md-card>
+    </md-content>
+  </div>
+  <!--
+  <div class="evidence-box">
+      <md-content class="md-padding">
+        <md-card>
+          <md-card-content>
+            <div class="parent">
+              <div class="child">
+                
+              </div>
+            </div>
+          </md-card-content>
+        </md-card>
+      </md-content>
+    </div>
+  -->
+</div>
+
+
+ <script type="text/javascript">
+    (function($) {
+        "use strict";
+        var icons = new Skycons({
+                "windColor": "LightSteelBlue"
+            }),
+            list = [
+                "wind"
+            ],
+            i;
+
+        for (i = list.length; i--;) 
+            icons.set("loadingAnimation", "wind");
+        icons.play();
+    })(jQuery);
+</script>
+

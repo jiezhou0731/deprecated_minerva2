@@ -1,0 +1,428 @@
+*:focus {
+outline: 0;
+outline: none;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+body{
+	overflow:hidden !important;
+	overflow-y: hidden !important;
+	height:100vh;
+	width:100vw;
+	z-index:1;
+}
+
+.header{
+	background-color: #3c8dbc;
+    padding:1vh 1vw 1vh 1vw;
+    font-size:3vh;
+    height:4vh;
+    width:100vw;
+    position: fixed;
+}
+
+.header .title{
+    color: white;
+    font-weight:bold;
+}
+
+.sphere-clicked-dropdown-menu{
+	position:fixed;
+}
+.sphere-clicked-dropdown-menu .md-fab-action-item{
+	margin-left:30px;
+}
+
+.sphere-clicked-dropdown-menu .menu-item, md-fab-speed-dial.md-scale .md-fab-action-item{
+	margin:0px;
+	padding:1px;
+	height:20px;
+	min-height:20px;
+	font-size: 10px;
+	line-height: 10px;
+}
+
+.search-result {
+	padding-top: 6vh;
+}
+
+
+.search-result .highlight{
+	padding:0px 2px;
+	color: white;
+}
+
+.search-result .doc-list{
+	width:50vw;
+	float:left;
+	overflow:hidden;
+}
+
+.search-result .doc-list md-content{
+	padding:0px;
+	margin-top:0px;
+}
+
+.search-result .doc-list md-content md-list-item.md-3-line > .md-no-style{
+	padding-right: 0px;
+}
+
+.search-result .doc-list md-content md-card md-card-content {
+    padding: 0px;
+} 
+
+.search-result .doc-list md-card{
+	min-height: 60vh;
+	max-height:60vh;
+	overflow: hidden;
+}
+
+.search-result .doc-list  md-card .parent{
+    height:  60vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.search-result .doc-list  md-card .child{
+    width: 100%;
+    height: 60vh;
+    overflow: auto;
+    padding-right: 15px; 
+}
+
+.search-result .doc-list .snippet{
+	line-height: 1.4;
+    word-wrap: break-word;
+    font-size: small;
+    font-family: arial, sans-serif;
+}
+
+.search-result .doc-list .title{
+	font-size: 18px;
+    font-weight: normal;
+    font-family: arial,sans-serif;
+    overflow: hidden;
+}
+
+.search-result .doc-list .rank{
+	background-color: #DADFE1;
+    float: left;
+    padding: 5px 5px 5px 5px;
+    margin-top: 7px;
+    font-size: 15px;
+    line-height: 15px;
+    margin-right: 5px;
+    border-radius: 3px;
+}
+
+
+.search-result .doc-detail{
+	width:50vw;
+	float:left;
+}
+
+.search-result .doc-detail .document{
+	width:50vw;
+	float:left;
+}
+
+.search-result .doc-detail .document .title{
+	font-size: 14px;
+    font-weight: bold;
+    font-family: arial,sans-serif;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.search-result .doc-detail .document .content{
+	line-height: 1.4;
+    word-wrap: break-word;
+    font-size: small;
+    font-family: arial, sans-serif;
+}
+
+.selected-text-pop-outter{
+	z-index:1000;
+	position:absolute;
+}
+
+.search-result .doc-detail .document .selected-text-pop{
+	border-radius: 16px;
+    display: block;
+    height: 32px;
+    line-height: 32px;
+    margin: 8px 8px 0 0;
+    padding: 0 12px;
+    float: left;
+    box-sizing: border-box;
+    max-width: 100%;
+    position: relative;
+    background: #45B6B0;
+    color: white;
+    font-family: Roboto,'Helvetica Neue',sans-serif;
+    font-size: 16px;
+}
+
+.search-result .doc-detail .document md-content{
+	padding:0px;
+}
+
+.search-result .doc-detail .document md-card{
+	min-height:60vh;
+	max-height:60vh;
+	overflow: hidden;
+}
+
+.search-result .doc-detail .document  md-card .parent{
+    height:  60vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.search-result .doc-detail .document  md-card .child{
+	position: relative;
+    width: 100%;
+    height: 60vh;
+    overflow: auto;
+    overflow-x:hidden;
+    padding-right: 15px; /* Increase this value for cross-browser compatibility */
+}
+
+.search-result .doc-detail .evidence-box {
+	width:50vw;
+	float:left;
+}
+
+.search-result .doc-detail .evidence-box md-content{
+	padding:0px;
+}
+
+.search-result .doc-detail .evidence-box md-card{
+	min-height:20vh;
+	max-height:20vh;
+	overflow: hidden;
+}
+
+.search-result .doc-detail .evidence-box  md-card md-card-content {
+	padding:0px;
+	margin:0px;
+}
+
+.search-result .doc-detail .evidence-box  md-card .parent{
+    height:  20vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.search-result .doc-detail .evidence-box md-card .child{
+    width: 100%;
+    height: 20vh;
+    overflow: auto;
+    padding-right: 15px; 
+}
+
+.search-result .doc-detail .cover-green {
+	z-index:2;
+	position:absolute; 
+	opacity: 0.5;
+	left:1vw;
+	top:2vh;
+	height: 18vh;
+	width:48vw; 
+	background-color:#45B6B0;
+	text-align:center;
+	font-size:6vh;
+}
+
+.search-result .doc-detail .cover-font {
+	z-index:2;
+	position:absolute; 
+	height: 18vh;
+	width:48vw;
+	left:1vw;
+	top:2vh;
+	text-align:center;
+	font-size:6vh;
+	line-height: 16vh;
+	color:white;
+}
+
+.search-result .doc-detail .evidence-box .chips{
+	height:20px;
+	padding:5px;
+}
+
+.search-result .doc-detail .evidence-box .chips .chip{
+	background: #45B6B0;
+	color:white;
+	float:left;
+	padding:10px;
+	border-radius: 16px;
+	margin: 2px;
+}
+
+.search-result .doc-detail .evidence-box  .menu{
+	position:absolute; 
+	top:25px;
+	overflow:hidden;
+	margin-top:1px;
+}
+.search-result .doc-detail .evidence-box .dropped-text-types{
+    float:left; 
+    min-width:80px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-right:solid,white,1px;
+    margin-left:1px;
+    margin-top:1px;
+    text-align: center; 
+    border-right: solid 1px white;
+    color:white;
+    cursor: pointer;
+    background-color:#3c8dbc;
+    border-radius: 5px;
+}
+.search-result .doc-detail .evidence-box .dropped-text-types:hover{
+    background-color: #357ebd;
+}
+
+.search-result .doc-detail .evidence-box .pair{
+    padding:10px;
+    cursor: pointer;
+    font-family: arial, sans-serif;
+    color:black;
+}
+.search-result .doc-detail .evidence-box .pair:hover{
+    background-color:#36D7b7;
+    color:white;
+}
+
+.left-panel{
+	float:left;
+	width:50vw;
+}
+
+.toolbox{
+	float:left;
+	width: 50vw;
+	height:20vh;
+}
+
+.toolbox md-content{
+	padding:0px;
+	margin-top:0px;
+}
+
+.toolbox md-content md-card md-card-content {
+    padding: 0px;
+} 
+
+.toolbox md-card{
+	min-height: 20vh;
+	max-height:20vh;
+	overflow: hidden;
+}
+
+.toolbox md-card .parent{
+    height: 20vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.toolbox md-card .child{
+    width: 100%;
+    height: 20vh;
+    overflow: auto;
+    padding-right: 15px; 
+}
+
+.toolbox md-menu-bar md-menu.md-open > button, md-menu-bar md-menu > button:focus{
+	background-color:#3c8dbc;
+	color:white;
+}
+
+.toolbox md-toolbar{
+	background-color:#3c8dbc;
+    max-height: 50px;
+    min-height: 50px;
+    color:white;
+}
+
+.toolbox md-menu-bar button {
+    font-size: 15px;
+    height: 50px;
+    color:white;
+}
+
+.toolbox md-menu-bar .md-button span {
+    color:black;
+}
+
+
+.toolbox md-input-container{
+	width:35vw;
+}
+
+.toolbox .input-part{
+	float:left;
+}
+
+.toolbox .button-part{
+	float:left;
+	margin-top:-10px;
+}
+
+.toolbox md-input-container{
+	padding-bottom:8px;
+}
+
+.toolbox .tools{
+}
+
+.toolbox .tools md-radio-button{
+	float:left;
+}
+
+.toolbox .search-box{
+	margin-top:30px;
+}
+
+.toolbox .search-button{
+	margin-bottom:15px;
+}
+
+
+.graph{
+	width:100vw;
+	height:100vh;
+	float:left;
+}
+.graph #graph{
+	width:100vw;
+	height:100vh;
+}
+
+.entitiesStructure {
+	width:50vw;
+	height:500px;
+}
+
+.entitiesStructure iframe{
+	border:none;
+	width:50vw;
+	height:370px;
+}
+
+.entitiesStructure md-dialog-content{
+	padding:0px;
+}

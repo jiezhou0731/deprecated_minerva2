@@ -1,0 +1,29 @@
+<div ng-controller="SearchResultDocListCtrl">
+  <div class="document">
+    <md-content class="md-padding">
+        <md-card>
+          <md-card-content>
+            <md-content>
+              <div class="parent">
+                <div class="child">
+                  <md-list-item class="md-3-line" ng-repeat="item in $root.docs"  ng-click="clickContent(item)">
+                    <div class="md-list-item-text">
+                      <div class="title">
+                          <div class="rank">#{{$index+1}}</div> {{item.title}}
+                      </div>
+                      <div class="snippet" ng-bind-html="item.highlighting">
+                            {{item.highlighting}}
+                      </div>
+                    </div>
+                    <md-divider ng-if="!$last"></md-divider>
+                  </md-list-item>
+                </div>
+              </div>
+            </md-content>
+          </md-card-content>
+        </md-card>
+    </md-content>
+  </div>
+  
+</div>
+
