@@ -15,6 +15,6 @@ app.config(['$routeProvider',
         templateUrl: 'app/view/spheres/entitiesStructure.html'
       }).
       otherwise({
-        redirectTo: '/spheres'
+        redirectTo: '/home'
       });
   }]);
