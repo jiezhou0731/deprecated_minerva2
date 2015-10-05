@@ -41,6 +41,7 @@ app.controller('dialogCtrl', function($scope, $mdDialog, $rootScope) {
 
 app.controller('graphCtrl', function($scope, $mdDialog,$rootScope) {
 	$scope.clickSphere = function (event,msg){
+		/*
 		$rootScope.$broadcast('showDialog', msg);
 		var clickedObject=msg.clickedObject;
 		var entity="";
@@ -52,9 +53,12 @@ app.controller('graphCtrl', function($scope, $mdDialog,$rootScope) {
 		+entity
 		+"</hlt>. Good, please go on."
 		$rootScope.$broadcast('MinervaSpeak',args);
+		*/
 	}
 	$scope.rightClickSphere = function (event,msg){
+		/*
 		$rootScope.$broadcast('rightClickSphere', msg);
+		*/
 	}
 });
 
@@ -188,11 +192,10 @@ app.controller('SearchResultDocListCtrl', function(solrService,$rootScope, $scop
 			$rootScope.docs = data.docs;
 			//movingHistory.snapshot();
 			if ($rootScope.doNotAddToUserStates==true){
-				$rootScope.doNotAddToUserStates==false;
+				$rootScope.doNotAddToUserStates=false;
 			} else {
-				//$rootScope.stateHistory.push({query:args.query, transition: transition});
+				$rootScope.stateHistory.push({query:args.query, transition: transition});
 			}
-			//rootCookie.put("stateHistory",$rootScope.stateHistory);
 		});
 });
 
@@ -649,6 +652,38 @@ app.controller('ToolboxCtrl', function(pythonService, $mdDialog, rootCookie, $ro
 		$rootScope.beginning="false";
 	});
 });
+
+// User state track controller
+app.controller('userStateController', function(solrService,rootCookie,$scope, $rootScope) {
+	$rootScope.stateHistory=[];//rootCookie.get("stateHistory");
+	
+	// Scroll down to bottom
+	$rootScope.$watch("stateHistory",function(){
+		$('#userStateController').animate({scrollTop:$('#userStateController')[0].scrollHeight}, '600');
+	},true);
+
+	$scope.clickPreviousQuery= function(clickedQuery){
+		if (clickedQuery=="Paw"){
+			$rootScope.queryMoreStart++;
+			solrService.queryMore("*", $rootScope.queryMoreStart, "oldQuery").then(function (data){
+			$rootScope.docs = data.docs;
+			var subtopicPostJson={};
+			subtopicPostJson.docno=new Array();
+			for (var i=0; i<data.docs.length; i++){
+				subtopicPostJson.docno.push(data.docs[i].id);
+			}
+			topicService.getTopicTree(angular.toJson(subtopicPostJson));
+	        rootCookie.put("stateHistory",$rootScope.stateHistory);
+		});
+	        return;
+		}
+		$rootScope.queryRegular=clickedQuery;
+		$rootScope.doNotAddToUserStates = true;
+		$rootScope.$broadcast('outterControllerClickSubmit');
+	}
+});
+
+
 
 function entitiesStructureCtrl($scope, $mdDialog) {
 	$scope.hide = function() {

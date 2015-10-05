@@ -93,7 +93,7 @@ function init() {
 
     camera.position.x = 0;
     camera.position.y = 0;
-    camera.position.z = 150;
+    camera.position.z = 100;
     camera.lookAt(new THREE.Vector3(0, 0, 0));
 
     canvasContainer.appendChild(webGLRenderer.domElement);
@@ -149,7 +149,6 @@ function onDocumentMouseDown(event) {
     var mousePos = {};
     mousePos.x=event.pageX - $('#graph').offset().left;
     mousePos.y=event.pageY - $('#graph').offset().top;
-    console.log(mousePos.x,mousePos.y);
     var currentClickTime = Date.now();
     if (currentClickTime-lastClickTime<300){
         trackballControls.reset();
