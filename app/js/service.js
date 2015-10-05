@@ -1,6 +1,116 @@
 var pythonGetGraphStructure = 'http://141.161.20.98/direwolf/pythonCgi/getGraph.cgi';
+var pythonGetMoreTags = 'http://141.161.20.98/direwolf/pythonCgi/getMoreTags.cgi';
+var pythonSearch = 'http://141.161.20.98/direwolf/pythonCgi/pattern_handler.cgi';
 
 app.service('pythonService',function($http,$sce, $q,$rootScope){
+	this.queryData = function (args){
+		 var defer = $q.defer();
+		 $.ajax({
+		 	method: 'post',
+		 	url: pythonSearch,
+		 	data:
+		 		{
+		 		drop_str: args
+		 		},
+		 	success: function(response){
+		 		response=angular.fromJson(response);
+
+		 		docs= response.response.docs;
+		 		for (var i in docs) {
+		      				// Convert NULL title to "No Title"
+		      				if (docs[i].title==null ||docs[i].title=="") {
+		      					docs[i].title="No Title";
+		      				}
+
+		      				// Unescape highlights' HTML 
+		      				try{
+		      					docs[i].highlighting=getSnippet(docs[i].content, args);
+		      				} catch (err){
+		      				}
+
+		      				docs[i].plainContent=docs[i].content;
+		      				docs[i].content+="&nbsp; THE END."
+		      				docs[i].content=$sce.trustAsHtml(highlight(docs[i].content,args));
+		      				docs[i].escapedUlr=docs[i].url;
+		      				docs[i].url=unescape(docs[i].url);
+		      				$sce.trustAsResourceUrl(docs[i].url);
+		      				docs[i].upVote=null;
+		      				docs[i].downVote=null;
+		      			}
+		      			data = {docs:docs, numFound:response.response.numFound};
+
+		 		//$rootScope.$broadcast('gotTopicTree',response.topics);
+            	//resetCavas(topics);
+              	defer.resolve(data);
+		 	},
+		 	error: function(){
+		 		defer.reject('Can not connect to server');
+		 	}
+		 });
+		 return defer.promise;;
+	}
+
+	this.getPossiblePairs = function (args){
+		 var defer = $q.defer();
+		 $.ajax({
+		 	method: 'post',
+		 	url: pythonGetPossiblePairs,
+		 	data:
+		 		{
+		 		text: args
+		 		},
+		 	success: function(response){
+		 		response=angular.fromJson(response);
+              	defer.resolve(response);
+		 	},
+		 	error: function(){
+		 		defer.reject('Can not connect to server');
+		 	}
+		 });
+		 return defer.promise;;
+	}
+
+	this.getMoreTags = function (args){
+		 var defer = $q.defer();
+		 $.ajax({
+		 	method: 'post',
+		 	url: pythonGetMoreTags,
+		 	data:
+		 		{
+		 		text: args
+		 		},
+		 	success: function(response){
+		 		response=angular.fromJson(response);
+              	defer.resolve(response);
+		 	},
+		 	error: function(){
+		 		defer.reject('Can not connect to server');
+		 	}
+		 });
+		 return defer.promise;;
+	}
+
+	this.getMoreSpecificTypeOfTags = function (args){
+		 var defer = $q.defer();
+		 $.ajax({
+		 	method: 'post',
+		 	url: pythonGetMoreSpecificTypeOfTags,
+		 	data:
+		 		{
+		 		text: args.text,
+		 		type: args.type
+		 		},
+		 	success: function(response){
+		 		response=angular.fromJson(response);
+              	defer.resolve(response);
+		 	},
+		 	error: function(){
+		 		defer.reject('Can not connect to server');
+		 	}
+		 });
+		 return defer.promise;;
+	}
+
 	this.getGraphStructure = function (args){
 		var defer = $q.defer();
 		console.log("!!to cgi:");
