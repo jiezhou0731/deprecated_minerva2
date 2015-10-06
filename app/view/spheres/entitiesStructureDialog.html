@@ -1,4 +1,4 @@
-<md-dialog aria-label="Mango (a)" class="entitiesStructure">
+<md-dialog aria-label="Mango (a)" class="entitiesStructure" >
 	  <form>
 	  <md-toolbar>
 	    <div class="md-toolbar-tools">
@@ -10,7 +10,15 @@
 	    </div>
 	  </md-toolbar>
 	  <md-dialog-content>
-	    <iframe src="index.html#/entitiesStructure"></iframe>
+	  	<div class="loader-container">
+	  		<div class="loader">
+			  	<md-progress-circular ng-show="loadingThreeGraph" md-mode="indeterminate">
+			  	</md-progress-circular>
+		  	</div>
+	  	</div>
+
+	    <iframe  src="index.html#/entitiesStructure"></iframe>
+
 	  </md-dialog-content>
 
 	  <div class="md-actions" layout="row">

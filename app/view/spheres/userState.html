@@ -7,8 +7,10 @@
                 <div class='search-transition-pre' ng-repeat-start="state in $root.stateHistory" ng-show="!$first">
 					<img src='img/state_pre.png' />
 				</div>
-				<div class='search-transition' ng-show="!$first">
-					{{state.transition}}
+				<div class="search-transition">
+					<md-button class="md-raised"  ng-show="!$first">
+						{{state.transition}}
+					</md-button>
 				</div>
 				<div class="search-transition-pre" ng-show="!$first">
 					<img src="img/state_suc.png">

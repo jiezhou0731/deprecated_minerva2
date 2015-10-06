@@ -25,7 +25,37 @@
 
 
 <div class="header">
-     <div class="title">Minerva</div>
+     <md-menu class="menu-button" >
+        <md-button class="md-icon-button" aria-label="Settings" ng-click="  $mdOpenMenu($event)">
+            <md-icon md-svg-icon="img/icons/menu.svg" class="button"></md-icon>
+        </md-button>
+      </md-icon>
+      <md-menu-content width="2" >
+        <md-menu-item>
+          <md-button href="http://141.161.20.98/direwolf/index.php?r=searchEngine" >
+              Dynamic Search
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button href="http://cs-sys-1.uis.georgetown.edu/~jl1749/jie/dumpling/index_2.html#" >
+              Contrast
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button href="http://141.161.20.98/direwolf/index.php?r=public" >
+              Ebola
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button href="http://141.161.20.98/direwolf/index.php?r=laborTrafficking" >
+              Labor Trafficking
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+    <div class="title">
+      Minerva
+    </div>
 </div>
 
 
@@ -42,5 +72,5 @@
 </div>
 
 
-<div  ng-include="'app/view/spheres/userState.html'" id="searchResult">
+<div  ng-include="'app/view/spheres/userState.html'">
 </div>

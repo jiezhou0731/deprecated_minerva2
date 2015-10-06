@@ -180,6 +180,7 @@ function onDocumentMouseDown(event) {
 var updateStructure = function(){
 
     init();
+    
     //objectContainer.removeAll(scene);
 
     var createObjects=function (){
@@ -191,5 +192,5 @@ var updateStructure = function(){
     $.when(createObjects()).then(function(){
         objectContainer.addTo(scene);
     });
-
+    window.parent.postMessage("endLoading", '*');
 }
