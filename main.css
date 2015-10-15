@@ -12,6 +12,12 @@ outline: none;
     user-select: none;
 }
 
+.md-button {
+    max-height: 30px;
+    min-height: 30px;
+    height:30px;
+    line-height: 30px;
+}
 body{
 	overflow:hidden !important;
 	overflow-y: hidden !important;
@@ -23,7 +29,7 @@ body{
 .header{
 	background-color: #3c8dbc;
     font-size:3vh;
-    height:6vh;
+    height:5vh;
     width:100vw;
     position: fixed;
     overflow: visible;
@@ -33,7 +39,7 @@ body{
     color: white;
     font-weight:bold;
     float:left;
-    padding:1vh 1vw 1vh 0px;
+    padding:0.6vh 1vw 1vh 0px;
 }
 
 .header .menu-button {
@@ -45,14 +51,53 @@ body{
     color: white;
     font-weight:bold;
     padding:0px;
+    height: 3vh;
+    width: 3vh;
 }
 
 .header .md-button.md-icon-button {
-    height: 4vh;
-    width:6vh;
+    width:5vh;
     min-width: 0;
-    line-height: 4vh;
+    line-height: 3vh;
+    min-height: 3vh;
+    max-height: 3vh;
+    height: 3vh;
+    margin-top:0.7vh;
 }
+
+.header .statistics{
+    float:right;
+    margin-right: 20px;
+}
+
+.header .statistics .open-button{
+    color: white;
+    margin-top: 0.8vh;
+    width:3vh;
+}
+
+.statistics-table{
+    clear: both;
+    width:100%;
+    padding-bottom: 10px;
+}
+
+.statistics-table .statistics-row{
+    clear: both;
+    padding:10px 0px;
+}
+
+.statistics-table .statistics-row .statistics-cell{
+    float:left;
+    width:45%;
+}
+
+.statistics-close{
+    position: absolute;
+    top:10px;
+    right:10px;
+}
+
 .sphere-clicked-dropdown-menu{
 	position:fixed;
 }
@@ -70,7 +115,7 @@ body{
 }
 
 .search-result {
-	padding-top: 6vh;
+	padding-top: 5vh;
 }
 
 
@@ -92,6 +137,7 @@ body{
 
 .search-result .doc-list md-content md-list-item.md-3-line > .md-no-style{
 	padding-right: 0px;
+    max-height: 100vh;
 }
 
 .search-result .doc-list md-content md-card md-card-content {
@@ -99,20 +145,20 @@ body{
 } 
 
 .search-result .doc-list md-card{
-	min-height: 60vh;
-	max-height:60vh;
+	min-height: 62vh;
+	max-height:62vh;
 	overflow: hidden;
 }
 
 .search-result .doc-list  md-card .parent{
-    height:  60vh;
+    height:  62vh;
     width: 100%;
     overflow: hidden;
 }
 
 .search-result .doc-list  md-card .child{
     width: 100%;
-    height: 60vh;
+    height: 62vh;
     overflow: auto;
     padding-right: 15px; 
 }
@@ -153,12 +199,63 @@ body{
 	float:left;
 }
 
+.search-result .doc-detail .document .selected-text-pop-outter{
+    position: absolute;
+    top:40vh;
+    left:2vw;
+}
+
+.search-result .doc-detail .document .tabs  md-tabs:not(.md-no-tab-content):not(.md-dynamic-height){
+
+}
+
+.search-result .doc-detail .document .tabs md-tabs-canvas{
+    height:30px;
+}
+
+.search-result .doc-detail .document .tabs md-pagination-wrapper{
+    height:30px;
+}
+
+.search-result .doc-detail .document .tabs md-tab-content{
+    overflow: hidden;
+
+}
+
+.search-result .doc-detail .document .tabs md-tabs.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-ink-bar {
+    color: #F2784B;
+    background: #F2784B;
+}
+
+.search-result .doc-detail .document .tabs md-tabs.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+    color: #DADFE1;
+    font-weight: 600;
+    height:30px;
+    padding-top:0px;
+    line-height: 30px;
+}
+
+.search-result .doc-detail .document .tabs md-tabs.md-accent > md-tabs-wrapper {
+    background-color: #45B6B0;
+}
+
+.search-result .doc-detail .document .tabs  md-tabs.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active {
+    font-weight: 600;
+    color:white;
+    height:30px;
+    padding-top:0px;
+    line-height: 30px;
+}
+.search-result .doc-detail .document  md-card md-card-content{
+    padding:0px;
+} 
 .search-result .doc-detail .document .title{
 	font-size: 14px;
     font-weight: bold;
     font-family: arial,sans-serif;
     overflow: hidden;
     margin-bottom: 10px;
+    padding:10px 10px 0px 7px;
 }
 
 .search-result .doc-detail .document .content{
@@ -166,7 +263,37 @@ body{
     word-wrap: break-word;
     font-size: small;
     font-family: arial, sans-serif;
+    height:45vh;
+    width:100%;
+    border:none;
+    overflow: hidden;
+
 }
+
+.search-result .doc-detail .document .warnning{
+    position: absolute;
+    color: rgb(244,67,54);
+    background-color: rgba(244, 103, 54, 0.23);
+    height: 23px;
+    font-size: 11px;
+    padding: 5px 10px 7px 10px;
+    border-radius: 3px;
+    right: 5px;
+    top: 5px;
+}
+
+
+.search-result .doc-detail .document .ng-hide-add, .search-result .doc-detail .document .ng-hide-remove {
+  transition: all linear 0.5s;
+}
+
+.search-result .doc-detail .document .ng-hide {
+  line-height: 0;
+  opacity: 0;
+  top:0px;
+}
+
+
 
 .search-result .doc-detail .document .images{
     float: left;
@@ -200,13 +327,13 @@ body{
 }
 
 .search-result .doc-detail .document md-card{
-	min-height:60vh;
-	max-height:60vh;
+	min-height:62vh;
+	max-height:62vh;
 	overflow: hidden;
 }
 
 .search-result .doc-detail .document  md-card .parent{
-    height:  60vh;
+    height:  62vh;
     width: 100%;
     overflow: hidden;
 }
@@ -214,10 +341,26 @@ body{
 .search-result .doc-detail .document  md-card .child{
 	position: relative;
     width: 100%;
-    height: 60vh;
+    height: 62vh;
     overflow: auto;
     overflow-x:hidden;
     padding-right: 15px; /* Increase this value for cross-browser compatibility */
+}
+
+.search-result .doc-detail .document .parts .item-box{
+    margin-bottom: 15px;
+    float:left;
+}
+
+.search-result .doc-detail .document .parts .item{
+    float: left;
+    box-sizing: border-box;
+    padding: 10px 10px;
+    width:12vw;
+    line-height: 1.4;
+    word-wrap: break-word;
+    font-size: small;
+    font-family: arial, sans-serif;
 }
 
 .search-result .doc-detail .evidence-box {
@@ -410,14 +553,14 @@ body{
 
 .toolbox md-toolbar{
 	background-color:#3c8dbc;
-    max-height: 50px;
-    min-height: 50px;
+    max-height: 30px;
+    min-height: 30px;
     color:white;
 }
 
 .toolbox md-menu-bar button {
     font-size: 15px;
-    height: 50px;
+    height: 30px;
     color:white;
 }
 

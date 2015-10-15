@@ -1,0 +1,31 @@
+<md-dialog aria-label="Mango (a)" class="entitiesStructure" >
+	  <form>
+	  <md-toolbar>
+	    <div class="md-toolbar-tools">
+	      <h2>Entities Structure </h2>
+	      <span flex></span>
+	      <md-button class="md-icon-button" ng-click="hide()">
+	        <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+	      </md-button>
+	    </div>
+	  </md-toolbar>
+	  <md-dialog-content>
+	  	<div class="loader-container">
+	  		<div class="loader">
+			  	<md-progress-circular ng-show="loadingThreeGraph" md-mode="indeterminate">
+			  	</md-progress-circular>
+		  	</div>
+	  	</div>
+
+	    <iframe  src="index.html#/entitiesStructure"></iframe>
+
+	  </md-dialog-content>
+
+	  <div class="md-actions" layout="row">
+	    <span flex></span>
+	    <md-button ng-click="hide()" class="md-primary">
+	      OK
+	    </md-button>
+	  </div>
+	  </form>
+	</md-dialog>

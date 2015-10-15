@@ -1,5 +1,5 @@
-var solrQueryUrl = 'http://141.161.20.98:8080/solr/counterfeit/winwin';
-
+//var solrQueryUrl = 'http://141.161.20.98:8080/solr/counterfeit/winwin';
+var solrQueryUrl = 'http://141.161.20.98:8080/solr/electronic/select';
 
 app.controller('popupWindowController', function(pythonService, $window, $scope, $rootScope) {
 	/*
@@ -27,7 +27,7 @@ app.controller('dialogCtrl', function($scope, $mdDialog, $rootScope) {
 		trackballControls.enabled = false;
 		$mdDialog.show({
 			controller: docDetailInDialogCtrl,
-			templateUrl: 'app/view/spheres/docDetail.html',
+			templateUrl: 'app/view/home/docDetail.html',
 			parent: angular.element(document.body),
 			targetEvent: event,
 			clickOutsideToClose:true
@@ -261,7 +261,21 @@ app.controller('SearchResultDocListCtrl', function(solrService,$rootScope, $scop
 });
 
 //docDetail
-app.controller('SearchResultDocDetailCtrl', function(rootCookie, pythonService,$scope, $rootScope) {
+app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, pythonService,$scope, $rootScope) {
+	$scope.data = {
+      selectedIndex: 0,
+      secondLocked:  true,
+      secondLabel:   "Item Two",
+      bottom:        false
+    };
+    $scope.next = function() {
+      $scope.data.selectedIndex = Math.min($scope.data.selectedIndex + 1, 2) ;
+    };
+    $scope.previous = function() {
+      $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
+    };
+    
+
 	var COLORS = ['#ffebee', '#ffcdd2', '#ef9a9a', '#e57373', '#ef5350', '#f44336', '#e53935', '#d32f2f', '#c62828', '#b71c1c', '#ff8a80', '#ff5252', '#ff1744', '#d50000', '#f8bbd0', '#f48fb1', '#f06292', '#ec407a', '#e91e63', '#d81b60', '#c2185b', '#ad1457', '#880e4f', '#ff80ab', '#ff4081', '#f50057', '#c51162', '#e1bee7', '#ce93d8', '#ba68c8', '#ab47bc', '#9c27b0', '#8e24aa', '#7b1fa2', '#4a148c', '#ea80fc', '#e040fb', '#d500f9', '#aa00ff', '#ede7f6', '#d1c4e9', '#b39ddb', '#9575cd', '#7e57c2', '#673ab7', '#5e35b1', '#4527a0', '#311b92', '#b388ff', '#7c4dff', '#651fff', '#6200ea', '#c5cae9', '#9fa8da', '#7986cb', '#5c6bc0', '#3f51b5', '#3949ab', '#303f9f', '#283593', '#1a237e', '#8c9eff', '#536dfe', '#3d5afe', '#304ffe', '#e3f2fd', '#bbdefb', '#90caf9', '#64b5f6', '#42a5f5', '#2196f3', '#1e88e5', '#1976d2', '#1565c0', '#0d47a1', '#82b1ff', '#448aff', '#2979ff', '#2962ff', '#b3e5fc', '#81d4fa', '#4fc3f7', '#29b6f6', '#03a9f4', '#039be5', '#0288d1', '#0277bd', '#01579b', '#80d8ff', '#40c4ff', '#00b0ff', '#0091ea', '#e0f7fa', '#b2ebf2', '#80deea', '#4dd0e1', '#26c6da', '#00bcd4', '#00acc1', '#0097a7', '#00838f', '#006064', '#84ffff', '#18ffff', '#00e5ff', '#00b8d4', '#e0f2f1', '#b2dfdb', '#80cbc4', '#4db6ac', '#26a69a', '#009688', '#00897b', '#00796b', '#00695c', '#a7ffeb', '#64ffda', '#1de9b6', '#00bfa5', '#e8f5e9', '#c8e6c9', '#a5d6a7', '#81c784', '#66bb6a', '#4caf50', '#43a047', '#388e3c', '#2e7d32', '#1b5e20', '#b9f6ca', '#69f0ae', '#00e676', '#00c853', '#f1f8e9', '#dcedc8', '#c5e1a5', '#aed581', '#9ccc65', '#8bc34a', '#7cb342', '#689f38', '#558b2f', '#33691e', '#ccff90', '#b2ff59', '#76ff03', '#64dd17', '#f9fbe7', '#f0f4c3', '#e6ee9c', '#dce775', '#d4e157', '#cddc39', '#c0ca33', '#afb42b', '#9e9d24', '#827717', '#f4ff81', '#eeff41', '#c6ff00', '#aeea00', '#fffde7', '#fff9c4', '#fff59d', '#fff176', '#ffee58', '#ffeb3b', '#fdd835', '#fbc02d', '#f9a825', '#f57f17', '#ffff8d', '#ffff00', '#ffea00', '#ffd600', '#fff8e1', '#ffecb3', '#ffe082', '#ffd54f', '#ffca28', '#ffc107', '#ffb300', '#ffa000', '#ff8f00', '#ff6f00', '#ffe57f', '#ffd740', '#ffc400', '#ffab00', '#fff3e0', '#ffe0b2', '#ffcc80', '#ffb74d', '#ffa726', '#ff9800', '#fb8c00', '#f57c00', '#ef6c00', '#e65100', '#ffd180', '#ffab40', '#ff9100', '#ff6d00', '#fbe9e7', '#ffccbc', '#ffab91', '#ff8a65', '#ff7043', '#ff5722', '#f4511e', '#e64a19', '#d84315', '#bf360c', '#ff9e80', '#ff6e40', '#ff3d00', '#dd2c00', '#d7ccc8', '#bcaaa4', '#795548', '#d7ccc8', '#bcaaa4', '#8d6e63', '#eceff1', '#cfd8dc', '#b0bec5', '#90a4ae', '#78909c', '#607d8b', '#546e7a', '#cfd8dc', '#b0bec5', '#78909c'];
   
     $scope.colorTiles  = [];
@@ -293,13 +307,50 @@ app.controller('SearchResultDocDetailCtrl', function(rootCookie, pythonService,$
 
 		$("#docDetailPanel").scrollTop();
 		$scope.doc=args;
+
+		$scope.doc.cdn_data = angular.fromJson($scope.doc.cdn_data);
+		//console.log($scope.doc.cdn_data);
+		$("#docDetailHtmlIframe").attr("src", "data/iframe.html");
+		document.getElementById("docDetailHtmlIframe").contentWindow.postMessage($scope.doc.html, '*');
 	});
+
+	$scope.showWarnning = false;
+	window.iframeOnloadDone=function(){
+		if ($scope.doc==undefined || $scope.doc.html==undefined) return;
+
+		try {
+			if (document.getElementById("docDetailHtmlIframe").contentWindow.location
+				== window.location.href.substring(0, window.location.href.length-6)+"data/iframe.html") {
+				document.getElementById("docDetailHtmlIframe").contentWindow.postMessage($scope.doc.html, '*');
+				$scope.showWarnning = false;
+				$scope.$apply();
+			} else {
+				$scope.showWarnning = true;
+				$scope.$apply();
+			}
+		} catch (err) {
+			$scope.showWarnning = true;
+			$scope.$apply();
+		}
+	}
+
 
 	$scope.selectedText = "";
 	$scope.selectedTextPosition={};
 
 	$scope.droppedTextList = {};
 
+	$window.addEventListener('message', function(event) {
+		 var args={};
+		 args.runApply=true;
+		 $rootScope.$broadcast('clearHoverPannels',args);
+		 if (event.data!=undefined && event.data.length!=0) {
+			 $scope.selectedTextPosition.left=20;
+			 $scope.selectedTextPosition.top=50;
+			 $scope.selectedText=event.data;
+			 $scope.$apply();
+		 }
+	});
 	$scope.getSelectionText = function(event) {
 		$rootScope.$broadcast('clearHoverPannels');
 		$scope.selectedTextPosition.left=event.offsetX-10;
@@ -520,22 +571,29 @@ app.controller('SearchResultDocDetailCtrl', function(rootCookie, pythonService,$
     }
 
     $scope.$on('clearHoverPannels',function(event, args){
-    	console.log("??");
-    	$scope.clearPanels();
+    	if (args!=undefined && args.runApply==true) {
+    		$scope.clearPanels(true);
+    	} else {
+    		$scope.clearPanels();
+    	}
     });
 
 
-    $scope.clearPanels = function (){
+    $scope.clearPanels = function (runApply){
     	for (var i=0; i<$scope.droppedTextArray.length; i++){
     		$scope.droppedTextArray[i].showTypeSelectPanel=false;
     		$scope.droppedTextArray[i].showMenu=false;
     	}
     	$scope.showPossiblePairsPanel=false;
+    	if (runApply) {
+    		$scope.$apply();
+    	}
     }
 });
 
 dropText = function(event, ui) {
 };
+
 
 app.controller('ToolboxCtrl', function(pythonService, $mdDialog, rootCookie, $rootScope, $cookies, $scope, $sce, solrService) {
 	$scope.batchQueryFileChosen = function(){
@@ -558,6 +616,10 @@ app.controller('ToolboxCtrl', function(pythonService, $mdDialog, rootCookie, $ro
 	        //rootCookie.put("stateHistory",$rootScope.stateHistory);
 	    }
 	});
+	}
+
+	$scope.click3DVisualization = function(){
+		var popupWindow = window.open('http://141.161.20.98/direwolf_test/eval/MinervaVisual/index.html');
 	}
 
 	$scope.show3DEntity = function() {
@@ -715,13 +777,57 @@ app.controller('userStateController', function(solrService,rootCookie,$scope, $r
 	}
 });
 
+app.controller('statisticsCtrl', function($mdToast,$document, solrService,rootCookie,$scope, $rootScope) {
+	 var last = {
+	  bottom: false,
+	  top: true,
+	  left: false,
+	  right: true
+	};
 
+	$scope.toastPosition = angular.extend({},last);
+
+	$scope.showCustomToast = function() {
+    $mdToast.show({
+    	  controller: 'statisticsCtrl',
+		  templateUrl: 'toast-template.html',
+		  parent : $document[0].querySelector('#toastBounds'),
+		  hideDelay: 60000,
+		  position: $scope.getToastPosition()
+		});
+	};
+
+    $scope.closeToast = function() {
+	    $mdToast.hide();
+	};
+
+
+	function sanitizePosition() {
+		var current = $scope.toastPosition;
+
+		if ( current.bottom && last.top ) current.top = false;
+		if ( current.top && last.bottom ) current.bottom = false;
+		if ( current.right && last.left ) current.left = false;
+		if ( current.left && last.right ) current.right = false;
+
+		last = angular.extend({},current);
+	}
+
+	$scope.getToastPosition = function() {
+	    sanitizePosition();
+
+	    return Object.keys($scope.toastPosition)
+	      .filter(function(pos) { return $scope.toastPosition[pos]; })
+	      .join(' ');
+	};
+});
 
 function entitiesStructureCtrl($scope, $mdDialog, $window) {
+	/*
 	$window.addEventListener('message', function() {
         $scope.loadingThreeGraph=false;
     });
-
+	*/
     $scope.loadingThreeGraph=true;
 
 	$scope.hide = function() {

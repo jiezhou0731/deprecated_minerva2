@@ -9,10 +9,10 @@ app.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/home', {
-        templateUrl: 'app/view/spheres/index.html'
+        templateUrl: 'app/view/home/index.html'
       }).
       when('/entitiesStructure', {
-        templateUrl: 'app/view/spheres/entitiesStructure.html'
+        templateUrl: 'app/view/home/entitiesStructure.html'
       }).
       otherwise({
         redirectTo: '/home'
