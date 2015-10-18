@@ -311,7 +311,8 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
 		$scope.doc.cdn_data = angular.fromJson($scope.doc.cdn_data);
 		//console.log($scope.doc.cdn_data);
 		$("#docDetailHtmlIframe").attr("src", "data/iframe.html");
-		document.getElementById("docDetailHtmlIframe").contentWindow.postMessage($scope.doc.html, '*');
+		var msg = highlight($scope.doc.html,$rootScope.query);
+		document.getElementById("docDetailHtmlIframe").contentWindow.postMessage(msg, '*');
 	});
 
 	$scope.showWarnning = false;
@@ -321,7 +322,8 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
 		try {
 			if (document.getElementById("docDetailHtmlIframe").contentWindow.location
 				== window.location.href.substring(0, window.location.href.length-6)+"data/iframe.html") {
-				document.getElementById("docDetailHtmlIframe").contentWindow.postMessage($scope.doc.html, '*');
+				var msg = highlight($scope.doc.html,$rootScope.query);
+				document.getElementById("docDetailHtmlIframe").contentWindow.postMessage(msg, '*');
 				$scope.showWarnning = false;
 				$scope.$apply();
 			} else {
@@ -836,7 +838,7 @@ function entitiesStructureCtrl($scope, $mdDialog, $window) {
 };
 
 //Highlight all the keywords in target string.
-var highlight_colors = [ "#D35400","#F22613","#DB0A5B", "#1F3A93","#96281B","#D2527F","#674172"];
+var highlight_colors = [ "#F22613","#F22613","#DB0A5B", "#1F3A93","#96281B","#D2527F","#674172"];
 function highlight(target, keyword){
 	if (target==undefined){
 		return "";
@@ -853,12 +855,12 @@ function highlight(target, keyword){
 			|| keyword.toUpperCase()=="OR"
 			|| keyword.toUpperCase()=="NOT") {
 			continue;
+			}
+		reg = new RegExp(keyword, 'gi');
+		target = target.replace(reg, '<span class="highlight" style="background-color:'+highlight_colors[i%highlight_colors.length]+'">'+keyword+'</span>');
 	}
-	reg = new RegExp(keyword, 'gi');
-	target = target.replace(reg, '<span class="highlight" style="background-color:'+highlight_colors[i%highlight_colors.length]+'">'+keyword+'</span>');
-}
-
-return target;
+	console.log(target);
+	return target;
 }
 
 function snapSelectionToWord() {
