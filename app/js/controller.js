@@ -857,7 +857,7 @@ function highlight(target, keyword){
 			continue;
 			}
 		reg = new RegExp(keyword, 'gi');
-		target = target.replace(reg, '<span class="highlight" style="background-color:'+highlight_colors[i%highlight_colors.length]+'">'+keyword+'</span>');
+		target = target.replace(reg, '<span style="padding:0px 2px;color: white;background-color:'+highlight_colors[i%highlight_colors.length]+'">'+keyword+'</span>');
 	}
 	console.log(target);
 	return target;
