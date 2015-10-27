@@ -22,7 +22,7 @@
                           <div ng-show="showWarnning" class="warnning">
                              <i class="glyphicon glyphicon-exclamation-sign"></i>
 
-                            Warnning: You are browsing outter links, some functions are disabled.
+                            Warning: Page is outside the index. Some functions are disabled.
                           </div>
                           <div class="title" >
                             {{doc.title}}
@@ -36,7 +36,7 @@
                         <md-tab-label>Parts</md-tab-label>
                         <md-tab-body>
                           <md-list class="parts">
-                            <md-list-item class="item-box" ng-repeat="part in doc.cdn_data.crawl_data" >
+                            <md-list-item class="item-box" ng-repeat="part in doc.cdr_data.crawl_data" >
                               <div class="md-whiteframe-z1 item">
                                 <div>
                                   Part #{{$index}}:
@@ -73,14 +73,14 @@
                       ng-click="clickDropTextBox()" >
                         <div 
                           ng-repeat="droppedText in droppedTextArray track by $index" 
-                          ng-style="{'background-color':droppedText.backgroundColor}"
+             
                           ng-click="clickDroppedText(droppedText.text);" 
                           ng-right-click="rightClickDroppedText(droppedText,$event)" 
                           on-drop-success="dropTest()"> 
-                          <div class="chip"> 
+                          <div class="chip" ng-style="{'background-color':droppedText.backgroundColor}"> 
                                  <span>{{droppedText.text}}</span>
                                  <span ng-show="droppedText.type!=undefined" >({{droppedText.type}})</span>
-                                  <div class="remove" ng-click="removeDroppedText($index)">
+                                  <div class="remove" ng-click="removeDroppedText($event, $index)">
                                     <md-icon md-svg-icon="md-close" class="ng-isolate-scope md-default-theme" ></md-icon>
                                 </div>
                           </div>
@@ -96,7 +96,7 @@
                               </div>
 
                           </div>
-                          <div style="position:absolute; top:25px;overflow:hidden;margin-top:1px;" ng-show="droppedText.showTypeSelectPanel">
+                          <div class="dropped-text-types-box" ng-show="droppedText.showTypeSelectPanel">
                             <div ng-repeat="type in typeList" class="dropped-text-types" ng-click="clickType(droppedText,type,$event)">
                                 {{type}}
                             </div>

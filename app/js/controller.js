@@ -308,10 +308,12 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
 		$("#docDetailPanel").scrollTop();
 		$scope.doc=args;
 
-		$scope.doc.cdn_data = angular.fromJson($scope.doc.cdn_data);
-		//console.log($scope.doc.cdn_data);
+		$scope.doc.cdr_data = angular.fromJson($scope.doc.cdr_data);
+		//console.log($scope.doc.cdr_data);
 		$("#docDetailHtmlIframe").attr("src", "data/iframe.html");
-		var msg = highlight($scope.doc.html,$rootScope.query);
+		var msg = {};
+		msg.content = $scope.doc.html;
+		msg.keywords = $rootScope.query;
 		document.getElementById("docDetailHtmlIframe").contentWindow.postMessage(msg, '*');
 	});
 
@@ -322,7 +324,9 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
 		try {
 			if (document.getElementById("docDetailHtmlIframe").contentWindow.location
 				== window.location.href.substring(0, window.location.href.length-6)+"data/iframe.html") {
-				var msg = highlight($scope.doc.html,$rootScope.query);
+				var msg = {};
+				msg.content = $scope.doc.html;
+				msg.keywords = $rootScope.query;
 				document.getElementById("docDetailHtmlIframe").contentWindow.postMessage(msg, '*');
 				$scope.showWarnning = false;
 				$scope.$apply();
@@ -408,6 +412,7 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
 	};
 
 	$scope.clickDroppedText=function(text){
+		/*
 		pythonService.queryData(text).then(function (data){
 			$rootScope.docs = data.docs;
 			var subtopicPostJson={};
@@ -420,11 +425,15 @@ app.controller('SearchResultDocDetailCtrl', function($window, $sce, rootCookie, 
 			$rootScope.stateHistory.push({query:text, transition: "Relevant. Find out more."});
 	        //$rootScope.$apply();
 	        rootCookie.put("stateHistory",$rootScope.stateHistory);
-	    });
+	    });*/
+		$rootScope.page = 1;
+		$rootScope.queryRegular = text;
+		$rootScope.$broadcast('sendQuery',{query:$rootScope.queryRegular, start:($rootScope.page-1)*$rootScope.resultPerPage});
 	}
 
-	$scope.removeDroppedText=function(index){
+	$scope.removeDroppedText=function($event, index){
 		$scope.droppedTextArray.splice(index,1);
+		$event.stopPropagation();
 	}
 
 	$scope.typeList=["Link", "Address", "Part #", "Email", "Telephone", "Manufacturer", "Device Type", "Name", "Employee", "QQ", "Website"];
@@ -621,7 +630,7 @@ app.controller('ToolboxCtrl', function(pythonService, $mdDialog, rootCookie, $ro
 	}
 
 	$scope.click3DVisualization = function(){
-		var popupWindow = window.open('http://141.161.20.98/direwolf_test/eval/MinervaVisual/index.html');
+		var popupWindow = window.open('http://141.161.20.98/direwolf/eval/MinervaVisual/index.html');
 	}
 
 	$scope.show3DEntity = function() {
@@ -840,6 +849,8 @@ function entitiesStructureCtrl($scope, $mdDialog, $window) {
 //Highlight all the keywords in target string.
 var highlight_colors = [ "#F22613","#F22613","#DB0A5B", "#1F3A93","#96281B","#D2527F","#674172"];
 function highlight(target, keyword){
+	var english = /^[A-Za-z0-9]*$/;
+
 	if (target==undefined){
 		return "";
 	}
@@ -851,6 +862,7 @@ function highlight(target, keyword){
 	var keywords=keyword.split(" ");
 	for (var i = 0; i < keywords.length; i++) {
 		keyword=keywords[i];
+		if (english.test(keyword)==false) continue
 		if (keyword.toUpperCase()=="AND" 
 			|| keyword.toUpperCase()=="OR"
 			|| keyword.toUpperCase()=="NOT") {
@@ -859,6 +871,7 @@ function highlight(target, keyword){
 		reg = new RegExp(keyword, 'gi');
 		target = target.replace(reg, '<span style="padding:0px 2px;color: white;background-color:'+highlight_colors[i%highlight_colors.length]+'">'+keyword+'</span>');
 	}
+
 	return target;
 }
 

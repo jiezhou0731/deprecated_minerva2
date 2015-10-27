@@ -29,10 +29,12 @@ for fileNumber in range (0,1727):
             print  "Complete: "+"%.2f" % (doc_total_number/17270.0) +" Error rate: "+  "%.2f" % (100.0*error_doc_number*0.1/(1.0*(doc_total_number+1.0))) +" Total: " + str(doc_total_number) +" Error: " + str(error_doc_number)
             try:
                 doc_total_number = doc_total_number + 1
+                if not ("crawl_data" in doc["_source"] and len(doc["_source"]["crawl_data"])>0):
+                    continue
 
                 # d is what will be transfered to solr system
-                d={"cdn_data":""}
-                d['cdn_data'] = json.dumps(doc["_source"])
+                d={"cdr_data":""}
+                d['cdr_data'] = json.dumps(doc["_source"])
                 d['_index'] = str(doc["_index"])
                 d['_type'] = str(doc["_type"])
                 d['id'] = str(doc["_id"])
@@ -94,7 +96,6 @@ for fileNumber in range (0,1727):
                 f.write(json.dumps(d).encode('utf-8'))
             except Exception,e: 
                 error_doc_number = error_doc_number+1
-
         f.write("]")
         f.close()
 

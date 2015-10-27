@@ -89,7 +89,7 @@ body{
 
 .statistics-table .statistics-row .statistics-cell{
     float:left;
-    width:45%;
+    width:50%;
 }
 
 .statistics-close{
@@ -394,6 +394,7 @@ body{
     height: 19vh;
     overflow: auto;
     padding-right: 15px; 
+    cursor: default;
 }
 
 .search-result .doc-detail .cover-green {
@@ -456,21 +457,35 @@ body{
     transition: background 0.15s linear;    
     float:left;
     border-radius: 16px;
+    border: solid 1px rgba(255, 255, 0, 0.0);
 }
 
 .search-result .doc-detail .evidence-box .chips .remove:hover{
-    background-color: #03C9A9;
+    border: solid white 1px;
+    margin:0px;
 }
 
 .search-result .doc-detail .evidence-box .chips .remove md-icon{
     color:white;
+    margin-top: -1px;
+    margin-left: -1px;
 }
 .search-result .doc-detail .evidence-box  .menu{
 	position:absolute; 
 	top:25px;
 	overflow:hidden;
 	margin-top:1px;
+    z-index: 100;
 }
+
+.search-result .doc-detail .evidence-box  .dropped-text-types-box{
+    position:absolute; 
+    top:25px;
+    overflow:hidden;
+    margin-top:1px;
+    z-index: 1000;
+}
+
 .search-result .doc-detail .evidence-box .dropped-text-types{
     float:left; 
     min-width:80px;

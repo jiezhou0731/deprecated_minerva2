@@ -1,6 +1,8 @@
 var pythonGetGraphStructure = 'http://141.161.20.98/direwolf/pythonCgi/getGraph.cgi';
 var pythonGetMoreTags = 'http://141.161.20.98/direwolf/pythonCgi/getMoreTags.cgi';
 var pythonSearch = 'http://141.161.20.98/direwolf/pythonCgi/pattern_handler.cgi';
+var pythonGetPossiblePairs = 'http://141.161.20.98/direwolf/pythonCgi/getPossiblePairs.cgi';
+var pythonGetMoreSpecificTypeOfTags = 'http://141.161.20.98/direwolf/pythonCgi/getMoreSpecificTypeOfTags.cgi';
 
 app.service('pythonService',function($http,$sce, $q,$rootScope){
 	this.queryData = function (args){
@@ -80,6 +82,7 @@ app.service('pythonService',function($http,$sce, $q,$rootScope){
 		 		text: args
 		 		},
 		 	success: function(response){
+		 		console.log(response);
 		 		response=[{"field":"Product","key":"Part #","value":"CY7C1470V33-167AXI"},{"field":"Product","key":"Manufactor","value":"CYPRESS"},{"field":"Seller","key":"Telephone","value":"0755-83207872"},{"field":"Seller","key":"Qq","value":"QQ:1143812087"},{"field":"Seller","key":"Email","value":"E-mail:xsdic518@yeah.net"},{"field":"Product","key":"Part #","value":"STMPE610QTR"},{"field":"Product","key":"Package","value":"QFN16"},{"field":"Product","key":"Part #","value":"MC68EZ328CPU16V"},{"field":"Product","key":"Manufactor","value":"MOTOROLA"}]
 		 		response=angular.fromJson(response);
               	defer.resolve(response);
